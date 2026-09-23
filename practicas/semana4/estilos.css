@@ -1,0 +1,383 @@
+/* ================================
+   ESTILOS GENERALES
+   ================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3eee6;
+    color: #3f3a34;
+}
+
+
+/* ================================
+   ENCABEZADO
+   ================================ */
+
+header {
+    background-color: #8b7355;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+
+/* ================================
+   CONTENIDO PRINCIPAL
+   ================================ */
+
+main {
+    width: 90%;
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+section {
+    margin-bottom: 25px;
+}
+
+section p {
+    line-height: 1.6;
+}
+
+
+/* ================================
+   TITULOS
+   ================================ */
+
+h1 {
+    color: #8b7355;
+}
+
+h2 {
+    color: #6f5a43;
+    margin-bottom: 20px;
+}
+
+
+/* ================================
+   FLEXBOX
+   ================================ */
+
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.contenedor > div:first-child {
+    flex: 1;
+}
+
+
+/* ================================
+   CAJA - SERVICIOS DISPONIBLES
+   ================================ */
+
+.caja {
+    width: 280px;
+    margin: 0;
+    padding: 20px;
+    border: 2px solid #b49b7a;
+    border-radius: 10px;
+    background-color: #fffaf2;
+    box-shadow: 0 3px 8px rgba(80, 65, 45, 0.08);
+}
+
+.caja strong {
+    display: block;
+    color: #6f5a43;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.caja p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+/* ================================
+   FORMULARIO
+   ================================ */
+
+form {
+    background-color: #fffaf2;
+    padding: 30px;
+    border: 1px solid #d8cbb8;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(80, 65, 45, 0.10);
+}
+
+
+/* ================================
+   ETIQUETAS
+   ================================ */
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #5f5142;
+}
+
+
+/* ================================
+   CAMPOS DEL FORMULARIO
+   ================================ */
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #c8b79e;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: white;
+    color: #3f3a34;
+}
+
+
+/* ================================
+   EFECTO AL SELECCIONAR UN CAMPO
+   ================================ */
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #8b7355;
+    box-shadow: 0 0 5px rgba(139, 115, 85, 0.30);
+}
+
+
+/* ================================
+   BOTÓN
+   ================================ */
+
+button {
+    width: 100%;
+    padding: 13px;
+    background-color: #8b7355;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #6f5a43;
+}
+
+
+/* ================================
+   ENLACES COMO BOTONES
+   ================================ */
+
+section a {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: #8b7355;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+section a:hover {
+    background-color: #6f5a43;
+}
+
+
+/* ================================
+   RESULTADO DE PROCESAMIENTO
+   ================================ */
+
+.resultado {
+    background-color: #fffaf2;
+    padding: 30px;
+    border: 1px solid #d8cbb8;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(80, 65, 45, 0.10);
+}
+
+.resultado h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.mensaje-exito {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.mensaje-exito p {
+    color: #665b50;
+}
+
+.datos-cita {
+    margin-top: 25px;
+}
+
+.dato {
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background-color: #f3eee6;
+    border-left: 4px solid #8b7355;
+    border-radius: 5px;
+}
+
+.dato strong {
+    color: #6f5a43;
+}
+
+
+/* ================================
+   MENSAJES DE ERROR
+   ================================ */
+
+.errores {
+    background-color: #fffaf2;
+    padding: 30px;
+    border: 1px solid #d8cbb8;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(80, 65, 45, 0.10);
+}
+
+.errores h2 {
+    margin-top: 0;
+}
+
+.errores ul {
+    padding: 15px 20px;
+    background-color: #f3eee6;
+    border-left: 4px solid #9b6f52;
+    border-radius: 5px;
+}
+
+.errores li {
+    margin-bottom: 8px;
+}
+
+
+/* ================================
+   PIE DE PÁGINA
+   ================================ */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    background-color: #6f5a43;
+    color: white;
+}
+
+
+/* ================================
+   DISEÑO ADAPTABLE
+   ================================ */
+
+@media (max-width: 600px) {
+
+    main {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .contenedor {
+        flex-direction: column;
+    }
+
+    .caja {
+        width: 100%;
+    }
+
+    input,
+    select,
+    button {
+        font-size: 15px;
+    }
+}
+/* ================================
+   MENSAJES DE JAVASCRIPT
+   ================================ */
+
+.mensaje-bienvenida {
+    text-align: center;
+    margin: 20px auto;
+    padding: 12px;
+    color: #6f5a43;
+    font-weight: bold;
+}
+
+.mensaje-error {
+    margin-top: 20px;
+    padding: 12px 15px;
+    background-color: #f4e1d7;
+    border-left: 4px solid #9b6f52;
+    border-radius: 5px;
+    color: #704838;
+}
+
+.mensaje-exito {
+    margin-top: 20px;
+    padding: 12px 15px;
+    background-color: #e8eadf;
+    border-left: 4px solid #7b8063;
+    border-radius: 5px;
+    color: #555a42;
+}
+
+
+/* ================================
+   INFORMACIÓN ADICIONAL
+   ================================ */
+
+.informacion-seccion {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.informacion-seccion button {
+    width: auto;
+    padding: 10px 18px;
+    margin-bottom: 15px;
+}
+
+#informacion {
+    background-color: #fffaf2;
+    padding: 20px;
+    border: 1px solid #d8cbb8;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(80, 65, 45, 0.08);
+}
+
+#informacion h2 {
+    margin-top: 0;
+}
+
+#informacion p {
+    margin-bottom: 0;
+}
