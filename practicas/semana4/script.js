@@ -6,6 +6,10 @@ let nombre = "";
 let servicio = "";
 let fecha = "";
 
+console.log("Nombre:", "ENRIQUE");
+console.log("Servicio:", "CABELLO PELON"  );
+console.log("Fecha:", "12-02-27");
+
 
 // ================================
 // FUNCIÓN DE BIENVENIDA
@@ -44,6 +48,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let telefono = telefonoCampo.value.trim();
         let email = emailCampo.value.trim();
+    
+        console.log("Nombre:", nombre);
+        console.log("Telefono:", telefono);
+        console.log("Correo:", email);
+        console.log("Servicio:", servicio);
+        console.log("Fecha:", fecha);
+      
+        
 
         // Limpiar mensaje anterior
         mensaje.textContent = "";
