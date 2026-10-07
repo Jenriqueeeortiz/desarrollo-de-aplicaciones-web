@@ -2,7 +2,7 @@
 
 $servidor = "localhost";
 $usuario = "root";
-$password = "123456";
+$password = "psswd";
 $baseDatos = "salon_belleza";
 
 $conexion = new mysqli($servidor, $usuario, $password, $baseDatos);
