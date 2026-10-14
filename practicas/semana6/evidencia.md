@@ -115,20 +115,6 @@ posteriormente se reinicio el servidor de php y se realizaron nuevamente las pru
 
 el error desaparecio y la actualizacion de citas funciono correctamente.
 
-evidencias
-
-captura del formulario de registro de citas.
-
-captura de la tabla con las citas registradas.
-
-captura del formulario para editar una cita.
-
-captura de una cita despues de actualizar sus datos.
-
-captura de la confirmacion para eliminar una cita.
-
-captura de los registros almacenados en mysql.
-
 reflexion final
 
 en esta practica aprendi a implementar las cuatro operaciones principales de un crud utilizando php y mysql.
