@@ -1,0 +1,8 @@
+# configuracion local y credenciales
+config.local.php
+.env
+.env.*
+!.env.example
+
+# archivos temporales
+*.log
