@@ -1,0 +1,331 @@
+
+
+<?php
+require_once __DIR__ . "/autorizacion.php";
+require_once __DIR__ . "/conexion.php";
+
+// Crear token CSRF
+if (empty($_SESSION["csrf_token"])) {
+    $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
+}
+
+// Escapar datos antes de mostrarlos
+function escapar($valor) {
+    return htmlspecialchars(
+        (string)$valor,
+        ENT_QUOTES,
+        "UTF-8"
+    );
+}
+
+// Consultar las citas
+$sql = "SELECT * FROM citas ORDER BY fecha ASC";
+$resultado = $conexion->query($sql);
+
+// Identificar el rol del usuario
+$esAdmin = esAdministrador();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Citas - Salón de Belleza</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Sistema de Citas - Salón de Belleza</h1>
+
+    <?php if ($esAdmin): ?>
+        <p>Administra las citas del salón de belleza</p>
+    <?php else: ?>
+        <p>Consulta las citas registradas en el sistema</p>
+    <?php endif; ?>
+
+    <p>
+        Usuario:
+        <?php echo escapar($_SESSION["nombre"] ?? ""); ?>
+        |
+        Rol:
+        <?php echo $esAdmin ? "Administrador" : "Consulta"; ?>
+    </p>
+</header>
+
+<div id="mensajeBienvenida" class="mensaje-bienvenida"></div>
+
+<main>
+
+    <?php if ($esAdmin): ?>
+
+        <section class="contenedor">
+            <div>
+                <h2>Agendar una cita</h2>
+                <p>
+                    Completa los siguientes datos para
+                    registrar una nueva cita.
+                </p>
+            </div>
+
+            <div class="caja">
+                <strong>Servicios disponibles</strong>
+                <p>
+                    Cortes, keratina, tinte,
+                    peinados y maquillajes.
+                </p>
+            </div>
+        </section>
+
+        <section class="informacion-seccion">
+
+            <button type="button" id="btnMostrar">
+                Ocultar información
+            </button>
+
+            <div id="informacion">
+                <h2>Información de la cita</h2>
+                <p>
+                    Recuerda proporcionar tus datos correctamente.
+                    La fecha seleccionada debe ser posterior
+                    al día de hoy.
+                </p>
+            </div>
+
+        </section>
+
+        <section>
+
+            <div id="mensaje"></div>
+
+            <form id="formularioCita"
+                  action="procesar.php"
+                  method="POST">
+
+                <input type="hidden"
+                       name="csrf_token"
+                       value="<?php echo escapar($_SESSION["csrf_token"]); ?>">
+
+                <label for="nombre">
+                    Nombre del cliente:
+                </label>
+
+                <input type="text"
+                       id="nombre"
+                       name="nombre"
+                       minlength="3"
+                       maxlength="100"
+                       required>
+
+                <label for="telefono">
+                    Teléfono:
+                </label>
+
+                <input type="tel"
+                       id="telefono"
+                       name="telefono"
+                       pattern="[0-9]{10}"
+                       maxlength="10"
+                       required>
+
+                <label for="email">
+                    Correo electrónico:
+                </label>
+
+                <input type="email"
+                       id="email"
+                       name="email"
+                       maxlength="150"
+                       required>
+
+                <label for="servicio">
+                    Servicio:
+                </label>
+
+                <select id="servicio"
+                        name="servicio"
+                        required>
+
+                    <option value="">
+                        Selecciona un servicio
+                    </option>
+
+                    <option value="Corte de cabello">
+                        Corte de cabello
+                    </option>
+
+                    <option value="Keratina">
+                        Keratina
+                    </option>
+
+                    <option value="Tinte">
+                        Tinte
+                    </option>
+
+                    <option value="Peinado">
+                        Peinado
+                    </option>
+
+                    <option value="Maquillaje">
+                        Maquillaje
+                    </option>
+
+                </select>
+
+                <label for="fecha">
+                    Fecha de la cita:
+                </label>
+
+                <input type="date"
+                       id="fecha"
+                       name="fecha"
+                       min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>"
+                       required>
+
+                <button type="submit">
+                    Agendar cita
+                </button>
+
+            </form>
+
+        </section>
+
+    <?php else: ?>
+
+        <section class="contenedor">
+            <div>
+                <h2>Consulta de citas</h2>
+                <p>
+                    Puedes revisar las citas registradas,
+                    pero no tienes permisos para
+                    agregar, editar o eliminar información.
+                </p>
+            </div>
+
+            <div class="caja">
+                <strong>Acceso de solo lectura</strong>
+                <p>
+                    Tu cuenta tiene el rol de consulta.
+                </p>
+            </div>
+        </section>
+
+    <?php endif; ?>
+
+    <section class="citas-registradas">
+
+        <h2>Citas registradas</h2>
+
+        <?php if ($resultado && $resultado->num_rows > 0): ?>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Servicio</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                <?php while ($cita = $resultado->fetch_assoc()): ?>
+
+                    <tr>
+
+                        <td>
+                            <?php echo (int)$cita["id"]; ?>
+                        </td>
+
+                        <td>
+                            <?php echo escapar($cita["nombre"]); ?>
+                        </td>
+
+                        <td>
+                            <?php echo escapar($cita["telefono"]); ?>
+                        </td>
+
+                        <td>
+                            <?php echo escapar($cita["email"]); ?>
+                        </td>
+
+                        <td>
+                            <?php echo escapar($cita["servicio"]); ?>
+                        </td>
+
+                        <td>
+                            <?php echo escapar($cita["fecha"]); ?>
+                        </td>
+
+                        <td>
+
+                            <?php if ($esAdmin): ?>
+
+                                <a class="btn-editar"
+                                   href="editar.php?id=<?php echo (int)$cita['id']; ?>">
+                                    Editar
+                                </a>
+
+                                <form action="eliminar.php"
+                                      method="POST"
+                                      class="form-eliminar"
+                                      onsubmit="return confirm('¿Seguro que deseas eliminar esta cita?');">
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="<?php echo (int)$cita['id']; ?>">
+
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           value="<?php echo escapar($_SESSION['csrf_token']); ?>">
+
+                                    <button type="submit"
+                                            class="btn-eliminar">
+                                        Eliminar
+                                    </button>
+
+                                </form>
+
+                            <?php else: ?>
+
+                                <span>Solo lectura</span>
+
+                            <?php endif; ?>
+
+                        </td>
+
+                    </tr>
+
+                <?php endwhile; ?>
+
+                </tbody>
+            </table>
+
+        <?php else: ?>
+
+            <p>No hay citas registradas.</p>
+
+        <?php endif; ?>
+
+    </section>
+
+    <p>
+        <a href="panel.php">Regresar al panel</a>
+    </p>
+
+</main>
+
+<footer>
+    <p>Sistema de Citas - Salón de Belleza</p>
+    <p>Proyecto de Desarrollo de Aplicaciones Web</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
